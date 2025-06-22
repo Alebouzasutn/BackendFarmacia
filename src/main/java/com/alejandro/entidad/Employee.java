@@ -2,16 +2,18 @@ package com.alejandro.entidad;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     private String username;
@@ -20,7 +22,9 @@ public class Employee {
     private String email;
     private String password;
     private String rol;
+    @CreationTimestamp
     private LocalDateTime created;
+    @UpdateTimestamp
     private LocalDateTime updated;
 	
     
@@ -105,6 +109,5 @@ public class Employee {
 		this.updated = updated;
 	}
 
-    // Constructor vacío y con parámetros
-    // Getters y Setters
+    
 }

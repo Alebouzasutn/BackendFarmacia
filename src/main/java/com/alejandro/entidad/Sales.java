@@ -1,6 +1,8 @@
 package com.alejandro.entidad;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sales")
@@ -11,68 +13,39 @@ public class Sales {
     private Integer id;
 
     @Column(name = "sale_date")
-    private LocalDateTime saleDate;
+    private LocalDateTime created;
 
     private Double total;
 
-    @Column(name = "customer_id")
-    private Integer customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    @Column(name = "employee_id")
-    private Integer employeeId;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
-	public Integer getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SalesDetail> details;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Sales() {}
 
-	public LocalDateTime getSaleDate() {
-		return saleDate;
-	}
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-	public void setSaleDate(LocalDateTime saleDate) {
-		this.saleDate = saleDate;
-	}
+    public LocalDateTime getCreated() { return created; }
+    public void setCreated(LocalDateTime created) { this.created = created; }
 
-	public Double getTotal() {
-		return total;
-	}
+    public Double getTotal() { return total; }
+    public void setTotal(Double total) { this.total = total; }
 
-	public void setTotal(Double total) {
-		this.total = total;
-	}
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
 
-	public Integer getCustomerId() {
-		return customerId;
-	}
+    public Employee getEmployee() { return employee; }
+    public void setEmployee(Employee employee) { this.employee = employee; }
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
-	}
-
-	public Integer getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
-	}
-
-	public Sales(Integer id, LocalDateTime saleDate, Double total, Integer customerId, Integer employeeId) {
-		super();
-		this.id = id;
-		this.saleDate = saleDate;
-		this.total = total;
-		this.customerId = customerId;
-		this.employeeId = employeeId;
-	}
-
-	public Sales() {
-		super();
-	}
-
-   
+    public List<SalesDetail> getDetails() { return details; }
+    public void setDetails(List<SalesDetail> details) { this.details = details; }
 }
+

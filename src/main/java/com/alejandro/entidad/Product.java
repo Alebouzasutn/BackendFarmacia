@@ -2,13 +2,15 @@ package com.alejandro.entidad;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "products")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer code;
@@ -21,8 +23,11 @@ public class Product {
     @Column(name = "product_quantity")
     private Integer productQuantity;
 
+    @CreationTimestamp
     private LocalDateTime created;
+    @UpdateTimestamp
     private LocalDateTime updated;
+	
 
     
     

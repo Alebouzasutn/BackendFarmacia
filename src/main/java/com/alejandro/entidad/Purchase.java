@@ -3,6 +3,9 @@ package com.alejandro.entidad;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.util.ArrayList;
 
 @Entity
@@ -23,11 +26,13 @@ public class Purchase {
     private Employee employee;
 
     private Double total;
+    @CreationTimestamp
     private LocalDateTime created;
 
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
     private List<PurchaseDetail> details = new ArrayList<>();
-
+    @UpdateTimestamp
+    private LocalDateTime updated;
     
     
     
@@ -35,15 +40,15 @@ public class Purchase {
 		super();
 	}
 
-	public Purchase(Integer id, Supplier supplier, Employee employee, Double total, LocalDateTime created,
-			List<PurchaseDetail> details) {
-		super();
+	public Purchase(Integer id, Supplier supplier, Employee employee, Double total, LocalDateTime created, LocalDateTime updated) {
+			
+		
 		this.id = id;
 		this.supplier = supplier;
 		this.employee = employee;
 		this.total = total;
 		this.created = created;
-		this.details = details;
+		this.updated = updated;
 	}
 
 	public Integer getId() {
@@ -81,11 +86,21 @@ public class Purchase {
 	public LocalDateTime getCreated() {
 		return created;
 	}
+	
 
 	public void setCreated(LocalDateTime created) {
 		this.created = created;
 	}
 
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+	
+	public void setUpdated(LocalDateTime now) {
+       this.updated= updated;	
+	
+	}
+	
 	public List<PurchaseDetail> getDetails() {
 		return details;
 	}
@@ -93,8 +108,17 @@ public class Purchase {
 	public void setDetails(List<PurchaseDetail> details) {
 		this.details = details;
 	}
+
+	
+		
+	}
+
+	
+
+	
+    
+
+
     
     
-    
-    
-}
+

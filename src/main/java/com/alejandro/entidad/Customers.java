@@ -3,13 +3,15 @@ package com.alejandro.entidad;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 
 
 	@Entity
 	@Table(name = "customers")
 	public class Customers {
-
-	    @Id
+		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Integer id;
 
@@ -20,7 +22,9 @@ import java.time.LocalDateTime;
 	    private String telephone;
 	    private String email;
 
+	    @CreationTimestamp
 	    private LocalDateTime created;
+	    @UpdateTimestamp
 	    private LocalDateTime updated;
 
 	    public Customers() {}

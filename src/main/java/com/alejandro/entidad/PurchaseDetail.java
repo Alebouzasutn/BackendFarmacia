@@ -13,9 +13,9 @@ public class PurchaseDetail {
     private Integer id;
 
     private Double purchasePrice;
-    private Integer purchaseAmount;
-    private Double purchaseSubtotal;
-
+    
+   private Double purchaseSubtotal;
+    private Integer productQuantity;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -24,15 +24,16 @@ public class PurchaseDetail {
     @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
-	public PurchaseDetail(Integer id, Double purchasePrice, Integer purchaseAmount, Double purchaseSubtotal,
-			Product product, Purchase purchase) {
+	public PurchaseDetail(Integer id, Double purchasePrice, Double purchaseSubtotal,
+			Product product, Purchase purchase, Integer productQuantity) {
 		super();
 		this.id = id;
 		this.purchasePrice = purchasePrice;
-		this.purchaseAmount = purchaseAmount;
+		
 		this.purchaseSubtotal = purchaseSubtotal;
 		this.product = product;
 		this.purchase = purchase;
+		this.productQuantity = productQuantity;
 	}
 
 	public PurchaseDetail() {
@@ -55,13 +56,7 @@ public class PurchaseDetail {
 		this.purchasePrice = purchasePrice;
 	}
 
-	public Integer getPurchaseAmount() {
-		return purchaseAmount;
-	}
 
-	public void setPurchaseAmount(Integer purchaseAmount) {
-		this.purchaseAmount = purchaseAmount;
-	}
 
 	public Double getPurchaseSubtotal() {
 		return purchaseSubtotal;
@@ -86,5 +81,11 @@ public class PurchaseDetail {
 	public void setPurchase(Purchase purchase) {
 		this.purchase = purchase;
 	}
-        
+	public Integer getProductQuantity() {
+		return productQuantity;
+    }
+	public void setProductQuantity( Integer productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+	
 }

@@ -3,6 +3,8 @@ package com.alejandro.entidad;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "suppliers")
@@ -18,9 +20,13 @@ public class Supplier {
     private String telephone;
     private String email;
     private String city;
+    
+    @CreationTimestamp
     private LocalDateTime created;
+    @UpdateTimestamp
     private LocalDateTime updated;
-	public Integer getId() {
+	
+    public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
@@ -93,5 +99,4 @@ public class Supplier {
 
     
     
-    // Getters, setters, constructor vacío y opcional con parámetros
 }
