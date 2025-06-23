@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity; 
 import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.web.bind.annotation.PatchMapping;
 
 @Tag(name = "Customers", description = "Operaciones relacionadas con clientes")
 @RestController
@@ -52,12 +49,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 	        service.delete(id);
 	        return ResponseEntity.noContent().build();
 	    }
-	    
-	    @Operation(summary = "Actualizar parcialmente un cliente", description = "Modifica campos específicos del cliente")
-	   @PatchMapping("/{id}")
-	    		public ResponseEntity<Customers> patch(@PathVariable Integer id, @RequestBody Map<String, Object> updates) {
-	    		    Customers clienteActualizado = service.patch(id, updates);
-	    		    return ResponseEntity.ok(clienteActualizado);
-	    		}
-	    
-}
+	}
+
+

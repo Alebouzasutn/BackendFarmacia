@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Alejandro | Backend Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <h1 class="mb-3 text-center">Alejandro | Backend Developer</h1>
+    <p class="lead text-center">Apasionado por la arquitectura backend, la calidad de código y los desafíos técnicos con Spring Boot & JPA</p>
+
+    <hr>
+
+    <h3>🚀 Proyectos destacados</h3>
+    <ul>
+      <li><strong>Farmacia MM - Sistema de Ventas</strong><br>
+        CRUD completo con clientes, ventas y productos | Spring Boot + JPA + Swagger + DTOs.<br>
+        <a href="https://github.com/Alebouzasutn/BackendFarmacia-mm" target="_blank">🔗 Ver en GitHub</a>
+      </li>
+    </ul>
+
+    <h3>🛠 Tecnologías</h3>
+    <p>Java • Spring Boot • Spring Data JPA • Swagger • Postman • JUnit • MySQL • Git</p>
+
+    <h3>💼 Sobre mí</h3>
+    <p>Me especializo en diseñar y refactorizar sistemas backend bien documentados, escalables y mantenibles. Estoy buscando oportunidades en desarrollo o soporte técnico en empresas como Accenture o Practia Global.</p>
+
+    <h3>📫 Contacto</h3>
+    <p>Podés encontrarme en <a href="https://github.com/Alebouzasutn" target="_blank">GitHub</a> o escribirme a alej.bouzas@gmail.com</p>
+  </div>
+
+</body>
+</html>

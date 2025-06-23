@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -45,24 +44,4 @@ public class CustomersService {
     public void delete(Integer id) {
         repository.deleteById(id);
     }
-    
-    public Customers patch(Integer id, Map<String, Object> updates) {
-        Customers customer = repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-
-       
-        if (updates.containsKey("name")) {
-            customer.setFullName((String) updates.get("name"));
-        }
-
-        if (updates.containsKey("email")) {
-            customer.setEmail((String) updates.get("email"));
-        }
-
-   
-
-        return repository.save(customer);
-    }
-    
-    
 }
