@@ -30,6 +30,9 @@ public class SupplierService {
         return supplierRepository.save(supplier);
     }
 
+    /*Este patrón permite mayor control sobre la integridad de datos campo a campo.
+    Es ideal cuando la entidad original debe mantenerse*/
+    
     public Supplier updateSupplier(Integer id, Supplier updated) {
         Optional<Supplier> existing = supplierRepository.findById(id);
         if (existing.isPresent()) {
