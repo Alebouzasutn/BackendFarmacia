@@ -40,6 +40,9 @@ public class EmployeeService {
         return repo.findByUsernameAndPassword(username, password);
     }
 
+    /*Este enfoque es útil cuando el objeto recibido 
+    ya ha sido validado y contiene todos los datos necesarios. Permite rapidez y simplicidad en contextos controlados*/
+    
     public Employee update(Employee employee) {
         employee.setUpdated(LocalDateTime.now());
         return repo.save(employee);
