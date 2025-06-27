@@ -13,11 +13,14 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+  @Column(nullable = false)
     private String name;
+ @Column(nullable = false)
     private String description;
+ @Column(nullable = false)
     private String address;
     private String telephone;
+  @Column(nullable = false)
     private String email;
     private String city;
     
