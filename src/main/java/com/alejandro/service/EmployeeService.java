@@ -28,8 +28,12 @@ public class EmployeeService {
         }
     }
 
-    public List<Employee> list() {
+    public List<Employee> list(String value) {
+        if(value == null || value.trim().isEmpty()){
         return repo.findAll();
+    }else{
+            return repo.findbyfullNameContainingIgnoreCase(value);
+        }
     }
 
     public Optional<Employee> getById(Integer id) {
