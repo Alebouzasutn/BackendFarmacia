@@ -28,7 +28,23 @@ public class Supplier {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
-	
+
+    public Supplier(Integer id, String name, String description, String address, String telephone, String email,
+			String city, LocalDateTime created, LocalDateTime updated) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.telephone = telephone;
+		this.email = email;
+		this.city = city;
+		this.created = created;
+		this.updated = updated;
+	}
+	public Supplier() {
+		super();
+	}
     public Integer getId() {
 		return id;
 	}
@@ -83,23 +99,5 @@ public class Supplier {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	public Supplier(Integer id, String name, String description, String address, String telephone, String email,
-			String city, LocalDateTime created, LocalDateTime updated) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.address = address;
-		this.telephone = telephone;
-		this.email = email;
-		this.city = city;
-		this.created = created;
-		this.updated = updated;
-	}
-	public Supplier() {
-		super();
-	}
-
-    
     
 }
