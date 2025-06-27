@@ -8,19 +8,18 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "products")
 public class Product {
-
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer code;
     private String name;
     private String description;
 
-    @Column(name = "unit_price")
+    @Column(name = "unit_price", nullable = false)
     private Double unitPrice;
 
-    @Column(name = "product_quantity")
+    @Column(name = "product_quantity", nullable = false)
     private Integer productQuantity;
 
     @CreationTimestamp
