@@ -12,9 +12,9 @@ public class Sales {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "sale_date")
+    @Column(name = "sale_date", nullable = false)
     private LocalDateTime created;
-
+    @Column(nullable = false)
     private Double total;
 
     @ManyToOne
