@@ -16,20 +16,23 @@ public class Employee {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String telephone;
+   @Column(nullable = false)
     private String email;
+   @Column(nullable = false)
     private String password;
+   @Column(nullable = false)
     private String rol;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
 	
-    
-    
-    
     
     public Employee() {
 		super();
