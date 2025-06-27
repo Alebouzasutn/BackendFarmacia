@@ -17,12 +17,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 	    @Column(name = "full_name", nullable = false)
 	    private String fullName;
-
-	    private String address;
+            private String address;
+	    @Column(nullable = false)
 	    private String telephone;
-	    private String email;
-
-	    @CreationTimestamp
+	    @Column(nullable = false)
+            private String email;
+            @CreationTimestamp
 	    private LocalDateTime created;
 	    @UpdateTimestamp
 	    private LocalDateTime updated;
