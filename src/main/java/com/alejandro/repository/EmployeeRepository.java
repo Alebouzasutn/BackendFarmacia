@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Optional<Employee> findByUsernameAndPassword(String username, String password);
     Optional<Employee> findByUsername(String username);
+    List <Employee> findByFullNameCotainingIgnoreCase(String value);
 }
