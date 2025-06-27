@@ -24,7 +24,7 @@ public class Employee {
     private String telephone;
    @Column(nullable = false, unique = true)
     private String email;
-   @Column(nullable = false, unique = true)
+   @Column(nullable = false, unique = true, length = 20)
     private String password;
    @Column(nullable = false)
     private String rol;
