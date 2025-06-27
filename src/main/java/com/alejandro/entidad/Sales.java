@@ -30,22 +30,46 @@ public class Sales {
 
     public Sales() {}
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Integer getId() { 
+        return id; 
+    }
+    public void setId(Integer id) { 
+        this.id = id; 
+    }
 
-    public LocalDateTime getCreated() { return created; }
-    public void setCreated(LocalDateTime created) { this.created = created; }
+    public LocalDateTime getCreated(){
+        return created; 
+    }
+    public void setCreated(LocalDateTime created) { 
+        this.created = created; 
+    }
 
-    public Double getTotal() { return total; }
-    public void setTotal(Double total) { this.total = total; }
+    public Double getTotal() {
+        return total; 
+    }
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 
-    public Customer getCustomer() { return customer; }
-    public void setCustomer(Customer customer) { this.customer = customer; }
+    public Customer getCustomer() {
+        return customer;
+    }
+    public void setCustomer(Customer customer) {
+        this.customer = customer; 
+    }
 
-    public Employee getEmployee() { return employee; }
-    public void setEmployee(Employee employee) { this.employee = employee; }
+    public Employee getEmployee() {
+        return employee; 
+    }
+    public void setEmployee(Employee employee) { 
+        this.employee = employee; 
+    }
 
-    public List<SalesDetail> getDetails() { return details; }
-    public void setDetails(List<SalesDetail> details) { this.details = details; }
+    public List<SalesDetail> getDetails() {
+        return details; 
+    }
+    public void setDetails(List<SalesDetail> details) { 
+        this.details = details;
+    }
 }
 
