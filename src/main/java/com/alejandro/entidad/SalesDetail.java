@@ -9,9 +9,11 @@ public class SalesDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Column(nullable = false)
     private Integer quantity;
+    @Column(nullable = false)
     private Double unitPrice;
+   @Column(nullable = false)
     private Double subtotal;
 
     @ManyToOne
