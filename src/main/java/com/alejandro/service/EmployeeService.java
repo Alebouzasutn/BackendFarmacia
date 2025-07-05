@@ -20,13 +20,10 @@ public class EmployeeService {
     public Employee register(Employee employee) {
         employee.setCreated(LocalDateTime.now());
         employee.setUpdated(LocalDateTime.now());
-        try {
-            return repo.save(employee);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e; // 
+        return repo.save(employee);
+    
         }
-    }
+    
 
     public List<Employee> list(String value) {
         if(value == null || value.trim().isEmpty()){
