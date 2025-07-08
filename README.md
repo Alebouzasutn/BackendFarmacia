@@ -48,7 +48,7 @@ Incluye:
    git clone https://github.com/Alebouzasutn/BackendFarmacia.git
    cd BackendFarmacia
 
-2) Crear la base de datos en MySQL:
+***2) Crear la base de datos en MySQL:***
 
 
 CREATE DATABASE pharmacy_database;
@@ -83,7 +83,8 @@ Una vez que la aplicación esté corriendo, podés acceder a la documentación d
 
 http://localhost:8080/swagger-ui.html
 
+
 ## 📬 Contacto
 Email: alej.bouzas@gmail.com
 
-LinkedIn: kedin.com/in/alejandro-manuel-b-a64133a4/
+LinkedIn: https://linkedin.com/in/alejandro-manuel-b-a64133a4/
