@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.alejandro.repository")
 @EntityScan(basePackages = "com.alejandro.entidad")
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.alejandro"})
 
 
 public class Application {

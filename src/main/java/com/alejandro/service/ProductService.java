@@ -2,6 +2,9 @@ package com.alejandro.service;
 
 import com.alejandro.entidad.Product;
 import com.alejandro.repository.ProductRepository;
+import com.alejandro.stock.event.StockEventPublisher;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,6 +13,8 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
+	@Autowired
+	private StockEventPublisher stockEventPublisher;
     private final ProductRepository repository;
 
     public ProductService(ProductRepository repository) {
@@ -32,10 +37,29 @@ public class ProductService {
         return repository.findById(id);
     }
 
-    public Product update(Product product) {
+   /* public Product update(Product product) {
         product.setUpdated(LocalDateTime.now());
         return repository.save(product);
+    }*/
+    
+    public Product actualizarProductoConStock(Integer id, Product incoming) {
+        Product existente = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        int anterior = existente.getProductQuantity(); 
+        existente.setName(incoming.getName());
+        existente.setProductQuantity(incoming.getProductQuantity());
+        // otros setters...
+
+        repository.save(existente);
+
+        int diferencia = incoming.getProductQuantity() - anterior; //  calculo diferencia
+        stockEventPublisher.publicar(existente, diferencia);       //  invoco correctamente
+
+        return existente;
     }
+
+
 
     public void delete(Integer id) {
         repository.deleteById(id);

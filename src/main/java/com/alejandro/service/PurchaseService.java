@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import com.alejandro.dto.PurchaseItemDTO;
 import com.alejandro.dto.PurchaseResponseDTO;
+import com.alejandro.stock.event.StockEventPublisher;
 
 @Service
 public class PurchaseService {
@@ -28,6 +29,10 @@ public class PurchaseService {
     }
 
     @Autowired
+    private StockEventPublisher stockEventPublisher;
+
+    
+    @Autowired
     private ProductRepository productRepo;
 
     public Purchase savePurchase(Purchase purchase) {
@@ -38,12 +43,17 @@ public class PurchaseService {
         for (PurchaseDetail d : purchase.getDetails()) {
             d.setPurchase(purchase);
 
-            // 🔁 Cargar el producto completo desde la base
+          
             Product producto = productRepo.findById(d.getProduct().getId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-
-            d.setProduct(producto); // actualiza el detalle con el producto real
+           
             int cantidad = d.getProductQuantity();
+            producto.setProductQuantity(producto.getProductQuantity() + cantidad);
+            productRepo.save(producto);
+            stockEventPublisher.publicar(producto, cantidad); 
+
+            d.setProduct(producto); 
+         
 
             total += producto.getUnitPrice() * cantidad;
         }
@@ -87,19 +97,29 @@ public class PurchaseService {
             }
             existing.setDetails(patch.getDetails());
 
-            
             double total = 0.0;
             for (PurchaseDetail d : patch.getDetails()) {
-                double price = d.getProduct().getUnitPrice();
-                int quantity = d.getProductQuantity();
-                total += price * quantity;
+                Product producto = productRepo.findById(d.getProduct().getId())
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+                int cantidad = d.getProductQuantity();
+
+                producto.setProductQuantity(producto.getProductQuantity() + cantidad);
+                productRepo.save(producto);
+
+                stockEventPublisher.publicar(producto, cantidad); 
+
+                d.setProduct(producto); // actualiza el detalle con el producto real
+
+                total += producto.getUnitPrice() * cantidad;
             }
             existing.setTotal(total);
         }
 
         existing.setUpdated(LocalDateTime.now());
         return purchaseRepo.save(existing);
-}
+    }
+
     
     
     public PurchaseResponseDTO getPurchaseDetails(Integer id) {
@@ -123,5 +143,5 @@ public class PurchaseService {
             items
         );
     }
-
 }
+

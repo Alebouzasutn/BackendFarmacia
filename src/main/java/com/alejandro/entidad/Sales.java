@@ -31,6 +31,7 @@ public class Sales {
     public Sales() {}
 
     public Integer getId() { 
+
         return id; 
     }
     public void setId(Integer id) { 
@@ -72,4 +73,5 @@ public class Sales {
         this.details = details;
     }
 }
-
+    
+    

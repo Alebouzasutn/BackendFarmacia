@@ -44,9 +44,9 @@ public class ProductController {
 
     @Operation(summary = "Actualizar producto", description = "Modifica los datos del producto con el ID dado")
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Integer id, @RequestBody Product updated) {
-        updated.setId(id);
-        return ResponseEntity.ok(service.update(updated));
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product incoming) {    	  
+    	Product actualizado = service.actualizarProductoConStock(id, incoming);
+           return ResponseEntity.ok(actualizado);
     }
 
     @Operation(summary = "Eliminar producto", description = "Borra un producto por su ID")

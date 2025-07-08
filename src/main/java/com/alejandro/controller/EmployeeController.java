@@ -35,7 +35,7 @@ public class EmployeeController {
     }
     @Operation(summary = "Listar empleados", description = "Devuelve una lista de todos los empleados registrados")
     @GetMapping
-    public ResponseEntity<List<Employee>> list (@RequestParam(required = false) String fullName) {
+ public ResponseEntity<List<Employee>> list(@RequestParam(required = false) String fullName) {
         return ResponseEntity.ok(service.list(fullName));
     }
     

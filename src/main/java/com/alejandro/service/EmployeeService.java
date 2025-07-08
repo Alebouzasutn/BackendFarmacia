@@ -17,23 +17,29 @@ public class EmployeeService {
         this.repo = repo;
     }
 
+    
     public Employee register(Employee employee) {
-        employee.setCreated(LocalDateTime.now());
+        
+    	employee.setCreated(LocalDateTime.now());
         employee.setUpdated(LocalDateTime.now());
+       
         return repo.save(employee);
     
         }
     
 
-    public List<Employee> list(String value) {
-        if(value == null || value.trim().isEmpty()){
-        return repo.findAll();
-    }else{
-            return repo.findbyfullNameContainingIgnoreCase(value);
-        }
-    }
 
-    public Optional<Employee> getById(Integer id) {
+    public List<Employee> list(String fullName) {
+        
+    	if(fullName == null || fullName.trim().isEmpty()) {
+    	return repo.findAll();
+    }else {
+    	return repo.findByFullNameContainingIgnoreCase(fullName);
+    }
+    }    
+    
+        
+     public Optional<Employee> getById(Integer id) {
         return repo.findById(id);
     }
 
