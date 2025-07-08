@@ -49,7 +49,6 @@ public class ProductService {
         int anterior = existente.getProductQuantity(); 
         existente.setName(incoming.getName());
         existente.setProductQuantity(incoming.getProductQuantity());
-        // otros setters...
 
         repository.save(existente);
 
