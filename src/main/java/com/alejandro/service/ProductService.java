@@ -42,18 +42,17 @@ public class ProductService {
         return repository.save(product);
     }*/
     
-    public Product actualizarProductoConStock(Integer id, Product incoming) {
+    public Product sumarStock(Integer id, Integer cantidadASumar) {
         Product existente = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
         int anterior = existente.getProductQuantity(); 
-        existente.setName(incoming.getName());
-        existente.setProductQuantity(incoming.getProductQuantity());
+        
+        existente.setProductQuantity(anterior + cantidadASumar);
 
         repository.save(existente);
 
-        int diferencia = incoming.getProductQuantity() - anterior; //  calculo diferencia
-        stockEventPublisher.publicar(existente, diferencia);       //  invoco correctamente
+        stockEventPublisher.publicar(existente, cantidadASumar );   
 
         return existente;
     }

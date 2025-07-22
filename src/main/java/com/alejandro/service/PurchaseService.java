@@ -16,51 +16,65 @@ import java.util.stream.Collectors;
 import com.alejandro.dto.PurchaseItemDTO;
 import com.alejandro.dto.PurchaseResponseDTO;
 import com.alejandro.stock.event.StockEventPublisher;
-
+import com.alejandro.repository.ProductRepository;
 @Service
 public class PurchaseService {
 
     private final PurchaseRepository purchaseRepo;
     private final PurchaseDetailRepository detailRepo;
+    private final ProductRepository productRepo;
+    private final StockEventPublisher stockeventpublisher;
 
-    public PurchaseService(PurchaseRepository purchaseRepo, PurchaseDetailRepository detailRepo) {
+   
+    public PurchaseService(PurchaseRepository purchaseRepo, PurchaseDetailRepository detailRepo, ProductRepository productRepo, StockEventPublisher stockeventpublisher) {
         this.purchaseRepo = purchaseRepo;
         this.detailRepo = detailRepo;
+        this.productRepo = productRepo;
+        this.stockeventpublisher = stockeventpublisher;
     }
 
-    @Autowired
-    private StockEventPublisher stockEventPublisher;
-
-    
-    @Autowired
-    private ProductRepository productRepo;
-
+  
+ 
     public Purchase savePurchase(Purchase purchase) {
         purchase.setCreated(LocalDateTime.now());
-
         double total = 0.0;
 
         for (PurchaseDetail d : purchase.getDetails()) {
             d.setPurchase(purchase);
 
-          
+            // Obtener producto real desde la base
             Product producto = productRepo.findById(d.getProduct().getId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-           
-            int cantidad = d.getProductQuantity();
-            producto.setProductQuantity(producto.getProductQuantity() + cantidad);
+
+            int stockActual = producto.getProductQuantity(); // stock actual lo saco de la bd, columna product quantity
+            int cantidadComprada = d.getProductQuantity(); //lo saca del detalle de la compra d...
+
+            // Verificar stock suficiente
+            if (stockActual < cantidadComprada) {
+                throw new RuntimeException("Stock insuficiente para el producto: " + producto.getName());
+            }
+
+            // Restar stock
+            producto.setProductQuantity(stockActual - cantidadComprada);
             productRepo.save(producto);
-            stockEventPublisher.publicar(producto, cantidad); 
 
-            d.setProduct(producto); 
-         
+            // Publicar evento de stock
+            stockeventpublisher.publicar(producto, -cantidadComprada);
 
-            total += producto.getUnitPrice() * cantidad;
+            // Asociar el producto actualizado al detalle
+            d.setProduct(producto);
+
+            // Calcular subtotal
+            total += producto.getUnitPrice() * cantidadComprada;
         }
 
+        // Asignar total a la compra 
         purchase.setTotal(total);
+
+        // Guardar compra con sus detalles
         return purchaseRepo.save(purchase);
     }
+
 
     public List<Purchase> findAll() {
         return purchaseRepo.findAll();
@@ -107,7 +121,7 @@ public class PurchaseService {
                 producto.setProductQuantity(producto.getProductQuantity() + cantidad);
                 productRepo.save(producto);
 
-                stockEventPublisher.publicar(producto, cantidad); 
+                stockeventpublisher.publicar(producto, cantidad); 
 
                 d.setProduct(producto); // actualiza el detalle con el producto real
 

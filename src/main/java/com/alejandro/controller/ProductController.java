@@ -42,11 +42,12 @@ public class ProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "Actualizar producto", description = "Modifica los datos del producto con el ID dado")
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product incoming) {    	  
-    	Product actualizado = service.actualizarProductoConStock(id, incoming);
+    @Operation(summary = "Sumar stock producto", description = "Suma stock al producto con el ID dado")
+    @PostMapping("/{id}") public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestParam int cantidad) {    	  
+    	
+    	Product actualizado = service.sumarStock(id, cantidad);
            return ResponseEntity.ok(actualizado);
+   
     }
 
     @Operation(summary = "Eliminar producto", description = "Borra un producto por su ID")

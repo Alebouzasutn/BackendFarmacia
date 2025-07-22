@@ -11,6 +11,7 @@ import java.util.*;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.alejandro.stock.event.StockEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class PurchaseServiceTest {
@@ -20,7 +21,10 @@ class PurchaseServiceTest {
 
     @Mock
     private PurchaseDetailRepository detailRepo;
-
+   
+    @Mock
+    private StockEventPublisher stockeventpublisher;
+   
     @Mock
     private ProductRepository productRepo;
 
@@ -32,7 +36,8 @@ class PurchaseServiceTest {
         Product producto = new Product();
         producto.setId(1);
         producto.setUnitPrice(50.0);
-
+        producto.setProductQuantity(10);
+        
         PurchaseDetail detalle = new PurchaseDetail();
         detalle.setProduct(producto);
         detalle.setProductQuantity(2);
