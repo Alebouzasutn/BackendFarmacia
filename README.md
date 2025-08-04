@@ -127,4 +127,4 @@ podman run --rm \
 
 API pública desplegada (si configuraste el puerto 8081 en tu grupo de seguridad):
 
-[http://<3.21.171.119>:8081/](http://<EC2_PUBLIC_IP>:8081/)
+[http://<3.21.171.119>:8081/](http://3.21.171.119:8081/)
