@@ -1,17 +1,17 @@
-#  Sistema de Compras y Ventas ñ Backend
+# Sistema de Compras y Ventas ‚Äì Backend
 
-##  DescripciÛn
+## Descripci√≥n
 
-Este proyecto es una API RESTful desarrollada en Java con Spring Boot, que implementa un sistema de gestiÛn de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
+Este proyecto es una API RESTful desarrollada en Java con Spring Boot, que implementa un sistema de gesti√≥n de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
 
 Incluye:
 
-- GestiÛn autom·tica de stock al registrar una compra (Spring Events).
-- DocumentaciÛn de endpoints con Swagger UI.
+- Gesti√≥n autom√°tica de stock al registrar una compra (Spring Events).
+- Documentaci√≥n de endpoints con Swagger UI.
 - Persistencia con MySQL mediante Spring Data JPA.
-- Pruebas unitarias del mÛdulo de compras con JUnit.
+- Pruebas unitarias del m√≥dulo de compras con JUnit.
 
-##  TecnologÌas utilizadas
+## Tecnolog√≠as utilizadas
 
 - Java 8
 - Spring Boot
@@ -22,7 +22,7 @@ Incluye:
 - Swagger (Springdoc OpenAPI)
 - JUnit 5
 
-##  Funcionalidades principales
+## Funcionalidades principales
 
 - CRUD de:
   - Productos
@@ -30,28 +30,29 @@ Incluye:
   - Detalle de compras
   - Proveedores
   - Empleados
-- ActualizaciÛn autom·tica de stock al registrar una compra
-- Validaciones b·sicas
-- DocumentaciÛn Swagger para probar los endpoints
+- Actualizaci√≥n autom√°tica de stock al registrar una compra
+- Validaciones b√°sicas
+- Documentaci√≥n Swagger para probar los endpoints
 - Pruebas unitarias con JUnit del flujo de compras
 
-## ConfiguraciÛn del proyecto
+## Configuraci√≥n del proyecto
 
 ### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/Alebouzasutn/BackendFarmacia.git
 cd BackendFarmacia
+```
 
-###2. Crear la base de datos en MySQL
+### 2. Crear la base de datos en MySQL
 
-
-sql
+```sql
 CREATE DATABASE pharmacy_database;
+```
 
-###3. Configurar application.properties
+### 3. Configurar `application.properties`
 
-```bash
+```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/pharmacy_database
 spring.datasource.username=${DB_USER}
 spring.datasource.password=${DB_PASSWORD}
@@ -65,34 +66,35 @@ spring.datasource.hikari.connection-init-sql=SET NAMES utf8mb4
 
 springdoc.api-docs.path=/api-docs
 springdoc.swagger-ui.path=/swagger-ui.html
+```
 
-###4. Ejecutar la aplicaciÛn
-Desde tu IDE (IntelliJ, Eclipse, etc.)
+### 4. Ejecutar la aplicaci√≥n
 
-O desde terminal con Maven:
+Desde tu IDE (IntelliJ, Eclipse, etc.) o desde la terminal con Maven:
 
 ```bash
 ./mvnw spring-boot:run
+```
 
-###5. Acceder a Swagger
-Una vez corriendo la aplicaciÛn:
+### 5. Acceder a Swagger
 
-http://localhost:8080/swagger-ui.html
+Una vez corriendo la aplicaci√≥n:
 
-##  Despliegue en AWS EC2 con Podman (Docker alternativo)
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+---
+
+## Despliegue en AWS EC2 con Podman (Docker alternativo)
 
 ### 1. Requisitos previos
-Cuenta en AWS
 
-Instancia EC2 (Ubuntu)
+- Cuenta en AWS
+- Instancia EC2 (Ubuntu)
+- Podman instalado
+- Contenedor MySQL corriendo
+- Proyecto Java empaquetado en `.jar`
 
-Podman instalado
-
-Contenedor MySQL corriendo
-
-Proyecto Java empaquetado en .jar
-
-###2. Configurar MySQL en Podman
+### 2. Configurar MySQL en Podman
 
 ```bash
 podman run --name mysql-container \
@@ -100,15 +102,16 @@ podman run --name mysql-container \
   -e MYSQL_DATABASE=pharmacy_database \
   -p 3306:3306 \
   -d mysql:8
-  
-  
-###3. Transferir .jar al servidor EC2
+```
+
+### 3. Transferir `.jar` al servidor EC2
 
 ```bash
 scp -i /ruta/a/clave.pem target/farma.backend-1-0.0.1-SNAPSHOT.jar \
-ubuntu@<EC2_PUBLIC_IP>:~/pharmacy_backend/
+ubuntu@<3.21.171.119.>:~/pharmacy_backend/
+```
 
-###4. Ejecutar el contenedor Java con Podman
+### 4. Ejecutar el contenedor Java con Podman
 
 ```bash
 podman run --rm \
@@ -118,8 +121,10 @@ podman run --rm \
   -v ~/pharmacy_backend/farma.backend-1-0.0.1-SNAPSHOT.jar:/app.jar:Z \
   --network host \
   docker.io/eclipse-temurin:17 java -jar /app.jar
-  
-###5. VerificaciÛn
-API p˙blica desplegada (si configuraste el puerto 8081 en tu grupo de seguridad):
+```
 
-http://<EC2_PUBLIC_IP>:8081/
+### 5. Verificaci√≥n
+
+API p√∫blica desplegada (si configuraste el puerto 8081 en tu grupo de seguridad):
+
+[http://<EC2_PUBLIC_IP>:8081/](http://<EC2_PUBLIC_IP>:8081/)
