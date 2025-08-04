@@ -1,151 +1,128 @@
-# Sistema de Compras y Ventas ‚Äì Backend
+# Sistema de Compras y Ventas ñ Backend
 
-## üìå Descripci√≥n
+## DescripciÛn
 
-Este proyecto es una API RESTful desarrollada en **Java con Spring**, que implementa un sistema de gesti√≥n de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
+Este proyecto es una API RESTful desarrollada en Java con Spring Boot, que implementa un sistema de gestiÛn de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
 
 Incluye:
 
-- Gesti√≥n autom√°tica de stock al registrar una compra (**Spring Events**).
-- Documentaci√≥n de endpoints con **Swagger UI**.
-- Persistencia con **MySQL** mediante **Spring Data JPA**.
-- Pruebas unitarias del m√≥dulo de compras con **JUnit**.
+- GestiÛn autom·tica de stock al registrar una compra (Spring Events).
+- DocumentaciÛn de endpoints con Swagger UI.
+- Persistencia con MySQL mediante Spring Data JPA.
+- Pruebas unitarias del mÛdulo de compras con JUnit.
 
----
+## ?? TecnologÌas utilizadas
 
-## ‚öôÔ∏è Tecnolog√≠as utilizadas
+- Java 8
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Spring Events
+- MySQL
+- Swagger (Springdoc OpenAPI)
+- JUnit 5
 
-- Java 8  
-- Spring Boot  
-- Spring Web  
-- Spring Data JPA  
-- Spring Events  
-- MySQL  
-- Swagger (Springdoc OpenAPI)  
-- JUnit 5  
+## Funcionalidades principales
 
----
+- CRUD de:
+  - Productos
+  - Compras
+  - Detalle de compras
+  - Proveedores
+  - Empleados
+- ActualizaciÛn autom·tica de stock al registrar una compra
+- Validaciones b·sicas
+- DocumentaciÛn Swagger para probar los endpoints
+- Pruebas unitarias con JUnit del flujo de compras
 
-## üöÄ Funcionalidades principales
+## ConfiguraciÛn del proyecto
 
-- CRUD de:  
-  - Productos  
-  - Compras  
-  - Detalle de compras  
-  - Proveedores  
-  - Empleados  
-- Actualizaci√≥n autom√°tica de stock al registrar una compra  
-- Validaciones b√°sicas  
-- Documentaci√≥n Swagger para probar los endpoints  
-- Pruebas unitarias con JUnit del flujo de compras  
+### 1. Clonar el repositorio
 
----
+```bash
+git clone https://github.com/Alebouzasutn/BackendFarmacia.git
+cd BackendFarmacia
+2. Crear la base de datos en MySQL
+sql
+Copiar
+Editar
+CREATE DATABASE pharmacy_database;
+3. Configurar application.properties
+properties
+Copiar
+Editar
+spring.datasource.url=jdbc:mysql://localhost:3306/pharmacy_database
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-## üõ†Ô∏è Configuraci√≥n del proyecto
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
-1. Clonar el repositorio:
+spring.datasource.hikari.connection-init-sql=SET NAMES utf8mb4
 
-   ```bash
-   git clone https://github.com/Alebouzasutn/BackendFarmacia.git
-   cd BackendFarmacia
-   ```
+springdoc.api-docs.path=/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+4. Ejecutar la aplicaciÛn
+Desde tu IDE (IntelliJ, Eclipse, etc.)
 
-2. Crear la base de datos en MySQL:
+O desde terminal con Maven:
 
-   ```sql
-   CREATE DATABASE pharmacy_database;
-   ```
+bash
+Copiar
+Editar
+./mvnw spring-boot:run
+5. Acceder a Swagger
+Una vez corriendo la aplicaciÛn:
 
-3. Configurar el archivo `application.properties`:
+http://localhost:8080/swagger-ui.html
 
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/pharmacy_database
-   spring.datasource.username=${DB_USER}
-   spring.datasource.password=${DB_PASSWORD}
-   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+ Despliegue en AWS EC2 con Podman (Docker alternativo)
+1. Requisitos previos
+Cuenta en AWS
 
-   spring.jpa.hibernate.ddl-auto=update
-   spring.jpa.show-sql=true
-   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+Instancia EC2 (Ubuntu)
 
-   spring.datasource.hikari.connection-init-sql=SET NAMES utf8mb4
+Podman instalado
 
-   springdoc.api-docs.path=/api-docs
-   springdoc.swagger-ui.path=/swagger-ui.html
-   ```
+Contenedor MySQL corriendo
 
-4. Ejecutar la aplicaci√≥n:
+Proyecto Java empaquetado en .jar
 
-   Desde tu IDE (IntelliJ, Eclipse, etc.)  
+2. Configurar MySQL en Podman
 
-   O desde terminal con Maven:
+podman run --name mysql-container \
+  -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=pharmacy_database \
+  -p 3306:3306 \
+  -d mysql:8
 
-   ```bash
-   ./mvnw spring-boot:run
-   ```
+  3. Transferir .jar al servidor EC2
 
-5. Acceso a Swagger:
+scp -i /ruta/a/clave.pem target/farma.backend-1-0.0.1-SNAPSHOT.jar \
+ubuntu@<EC2_PUBLIC_IP>:~/pharmacy_backend/
 
-   Una vez que la aplicaci√≥n est√© corriendo, pod√©s acceder a la documentaci√≥n de la API desde:  
+4. Ejecutar el contenedor Java con Podman
 
-   [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-
----
-
-## ?? Despliegue en AWS EC2 con Docker (Podman)
-
-### 1. Requisitos previos
-
-- Cuenta en [AWS](https://aws.amazon.com/)
-- Instancia EC2 (Ubuntu)
-- Podman instalado en EC2
-- Proyecto Java empaquetado (`.jar`)
-- Contenedor de MySQL configurado
-
----
-
-### 2. ConfiguraciÛn de MySQL en Podman
-
-
-  ```podman run --name mysql-farma -e MYSQL_ROOT_PASSWORD=rootpass \
-  -e MYSQL_DATABASE=farmakend -p 3307:3306 -d mysql:8
-  ```
-
----
-
-
-### 3. ConfiguraciÛn de la aplicaciÛn Java
-CompilaciÛn del .jar:
-
-
- ```mvn clean package
-Transferencia del .jar a EC2:
-
-
-scp -i /path/to/key.pem target/farma.backend-1-0.0.1-SNAPSHOT.jar \
-  ubuntu@<EC2_PUBLIC_IP>:~/farmakend/
- ```
- ---
-
-###  4. EjecuciÛn del contenedor Spring Boot
-
- ```podman run --name farma-backend -p 8081:8080 \
-  -e SPRING_DATASOURCE_URL=jdbc:mysql://<EC2_PRIVATE_IP>:3306/farmakend \
+podman run --rm \
+  -e SPRING_DATASOURCE_URL=jdbc:mysql://<EC2_PRIVATE_IP>:3306/pharmacy_database \
   -e SPRING_DATASOURCE_USERNAME=root \
   -e SPRING_DATASOURCE_PASSWORD=rootpass \
-  -v ~/farmakend/farma.backend-1-0.0.1-SNAPSHOT.jar:/app.jar:Z \
+  -v ~/pharmacy_backend/farma.backend-1-0.0.1-SNAPSHOT.jar:/app.jar:Z \
   --network host \
   docker.io/eclipse-temurin:17 java -jar /app.jar
- ```
-  Asegurarse de ajustar los valores del datasource si MySQL est· en otro contenedor o m·quina.
+Asegurarse de que la IP privada apunte al contenedor de MySQL si est·n separados.
 
- ---
-  
-### 5. VerificaciÛn
-Acceso a Swagger o API en:
+5. VerificaciÛn
+API p˙blica desplegada (si configuraste el puerto 8081 en tu grupo de seguridad):
+
 http://<EC2_PUBLIC_IP>:8081/
 
-## üì¨ Contacto
+Repositorio GitHub
+Ver en GitHub
 
-- **Email:** alej.bouzas@gmail.com  
-- **LinkedIn:** [https://linkedin.com/in/alejandro-manuel-b-a64133a4/](https://linkedin.com/in/alejandro-manuel-b-a64133a4/)
+ Contacto
+Email: alej.bouzas@gmail.com
+
+LinkedIn: https://linkedin.com/in/alejandro-manuel-b-a64133a4
