@@ -92,6 +92,59 @@ Incluye:
 
 ---
 
+## ?? Despliegue en AWS EC2 con Docker (Podman)
+
+### 1. Requisitos previos
+
+- Cuenta en [AWS](https://aws.amazon.com/)
+- Instancia EC2 (Ubuntu)
+- Podman instalado en EC2
+- Proyecto Java empaquetado (`.jar`)
+- Contenedor de MySQL configurado
+
+---
+
+### 2. Configuración de MySQL en Podman
+
+
+  ```podman run --name mysql-farma -e MYSQL_ROOT_PASSWORD=rootpass \
+  -e MYSQL_DATABASE=farmakend -p 3307:3306 -d mysql:8
+  ```
+
+---
+
+
+### 3. Configuración de la aplicación Java
+Compilación del .jar:
+
+
+ ```mvn clean package
+Transferencia del .jar a EC2:
+
+
+scp -i /path/to/key.pem target/farma.backend-1-0.0.1-SNAPSHOT.jar \
+  ubuntu@<EC2_PUBLIC_IP>:~/farmakend/
+ ```
+ ---
+
+###  4. Ejecución del contenedor Spring Boot
+
+ ```podman run --name farma-backend -p 8081:8080 \
+  -e SPRING_DATASOURCE_URL=jdbc:mysql://<EC2_PRIVATE_IP>:3306/farmakend \
+  -e SPRING_DATASOURCE_USERNAME=root \
+  -e SPRING_DATASOURCE_PASSWORD=rootpass \
+  -v ~/farmakend/farma.backend-1-0.0.1-SNAPSHOT.jar:/app.jar:Z \
+  --network host \
+  docker.io/eclipse-temurin:17 java -jar /app.jar
+ ```
+  Asegurarse de ajustar los valores del datasource si MySQL está en otro contenedor o máquina.
+
+ ---
+  
+### 5. Verificación
+Acceso a Swagger o API en:
+http://<EC2_PUBLIC_IP>:8081/
+
 ## ðŸ“¬ Contacto
 
 - **Email:** alej.bouzas@gmail.com  
