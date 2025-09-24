@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Este proyecto es una API RESTful desarrollada en Java con Spring Boot, que implementa un sistema de gestión de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
+Este proyecto es un monolitico + API RESTful desarrollada en Java con Spring Boot, que implementa un sistema de gestión de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
 
 Incluye:
 
