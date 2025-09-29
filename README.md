@@ -1,5 +1,32 @@
 # Sistema de Compras y Ventas – Backend
+🛒 Purchase System with Spring Framework
 
+Description:
+A complete purchase and sales management system built with a monolithic architecture, covering core business entities such as clients, employees, purchases, sales, and products.
+
+Architecture:
+
+Monolithic application following layered architecture (Controller, Service, Repository).
+
+Integrated Swagger UI for API documentation.
+
+Containerized MySQL database with Podman and deployed on AWS EC2.
+
+Technologies:
+
+Java, Spring Boot, JPA, Swagger, DTOs, MySQL, Podman, AWS EC2
+
+Features:
+
+CRUD operations for Clients, Employees, Products, Sales, and Purchases.
+
+DTO mapping for clean API responses.
+
+API testing with Postman and Swagger UI.
+
+AWS EC2 deployment.
+
+🔗 View on GitHub | 🔗 Swagger UI
 ## Descripción
 
 Este proyecto es un monolitico + API RESTful desarrollada en Java con Spring Boot, que implementa un sistema de gestión de compras y ventas. Permite realizar operaciones CRUD sobre entidades como productos, empleados, proveedores y compras.
